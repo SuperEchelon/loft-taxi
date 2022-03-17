@@ -1,26 +1,28 @@
 import React from "react";
+import {Login} from "./components/Login/Login.jsx";
+import {Map} from "./components/Map/Map.jsx";
+import {Profile} from "./components/Profile/Profile.jsx";
+import {Registration}  from "./components/Registration/Registration.jsx";
+import './App.css'
 
-
-const Map = () => <h1>Map</h1>
-const Profile = () => <h1>Profile</h1>
-const Login = () => <h1>Login</h1>
 
 const PAGES = {
-  login: Login,
-  profile: Profile,
-  map: Map
+  login: <Login/>,
+  profile: <Profile/>,
+  map: <Map/>,
+  registration: <Registration/>
 }
 
 class App extends React.Component {
-  state = { page: "login" };
+  state = { currentPage: "login" };
 
-  setPage = (page) => {
-    this.setState({ page });
+  navigateTo(page) {
+    this.setState({ currentPage: page });
   };
 
   render() {
-    const { page } = this.state
-    const Page = PAGES[page]
+
+    const Page = PAGES[this.state.currentPage]
 
     return (
     <>
@@ -28,31 +30,33 @@ class App extends React.Component {
       <nav>
         <ul>
           <li>
-            <button onClick={() => {this.setPage("map");
+            <button onClick={() => {this.navigateTo("login");
+          }}
+          >
+              Login
+            </button>
+          </li>
+          <li>
+            <button onClick={() => {this.navigateTo("map");
           }}
           >
               Map
             </button>
           </li>
           <li>
-            <button onClick={() => {this.setPage("profile");
+            <button onClick={() => {this.navigateTo("profile");
           }}
           >
-            Profile
+              Profile
             </button>
-          </li>
-          <li>
-            <button onClick={() => {this.setPage("login");
-            }}
-          >
-            Logout
-          </button>
           </li>
         </ul>
       </nav>
     </header>
     <main>
-      <Page setPage={this.setPage} />
+      <section> 
+        {PAGES[this.state.currentPage]}
+      </section>
     </main>
     </>
     );
