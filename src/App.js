@@ -7,10 +7,10 @@ import './App.css'
 
 
 const PAGES = {
-  login: <Login/>,
-  profile: <Profile/>,
-  map: <Map/>,
-  registration: <Registration/>
+  login: Login,
+  profile: Profile,
+  map: Map,
+  registration: Registration
 }
 
 class App extends React.Component {
@@ -25,26 +25,27 @@ class App extends React.Component {
     const Page = PAGES[this.state.currentPage]
 
     return (
-    <>
-    <header>
-      <nav>
-        <ul>
-          <li>
-            <button onClick={() => {this.navigateTo("login");
+    <> { !(this.state.currentPage === 'login' || this.state.currentPage === 'registration') &&
+    
+    <header className="header">
+      <nav className="menu">
+        <ul className="menu__list">
+          <li className="menu__item">
+            <button className="button" onClick={() => {this.navigateTo("login");
           }}
           >
               Login
             </button>
           </li>
-          <li>
-            <button onClick={() => {this.navigateTo("map");
+          <li className="menu__item">
+            <button className="button" onClick={() => {this.navigateTo("map");
           }}
           >
               Map
             </button>
           </li>
-          <li>
-            <button onClick={() => {this.navigateTo("profile");
+          <li className="menu__item">
+            <button className="button" onClick={() => {this.navigateTo("profile");
           }}
           >
               Profile
@@ -52,10 +53,10 @@ class App extends React.Component {
           </li>
         </ul>
       </nav>
-    </header>
-    <main>
-      <section> 
-        {PAGES[this.state.currentPage]}
+    </header> }
+    <main className="main-content">
+      <section className="section"> 
+        <Page navigateTo = {this.navigateTo.bind(this)} />
       </section>
     </main>
     </>

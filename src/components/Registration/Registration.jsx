@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Registration = ({ navigateTo }) => {
-    return <> 
+  return <> 
     <h2>Регистрация</h2>
     <div className="registration">
         <h2 className="registration__title">Войти</h2>
@@ -25,7 +25,7 @@ export const Registration = ({ navigateTo }) => {
          <button className="button" onClick={() => { navigateTo('login')}}>Войти</button>
         </form>
     </div>
-</>
+  </>
 }
 
 

@@ -7,7 +7,7 @@ export const Login = ({ navigateTo }) => {
         <h2 className="login__title">Войти</h2>
         <form className="login__form form">
          <div className="form__elem">
-             <label htmlFor="email">Email*</label>
+             <label htmlFor="email">Email</label>
              <input type="email" className="form__input" id="email" name="email" />
          </div>
          <div className="form__elem">
@@ -18,8 +18,8 @@ export const Login = ({ navigateTo }) => {
          <button className="button" onClick={() => { navigateTo('map') }}>Войти</button>
 
          <span>Новый пользователь?</span>
-         <button className="button" onClick={() => { navigateTo('login')}}>Регистрация</button>
+         <button className="button" onClick={() => { navigateTo('registration') }}>Регистрация</button>
         </form>
     </div>
-</>
+    </>
 }
