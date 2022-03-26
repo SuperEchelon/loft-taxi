@@ -1,24 +1,34 @@
 import React from "react";
-import {Login} from "./components/Login/Login.jsx";
+import {LoginWithAuth} from "./components/Login/Login.jsx";
 import {Map} from "./components/Map/Map.jsx";
-import {Profile} from "./components/Profile/Profile.jsx";
+import {ProfileWithAuth} from "./components/Profile/Profile.jsx";
 import {Registration}  from "./components/Registration/Registration.jsx";
-import './App.css'
+import {withAuth} from "./components/AuthContext/AuthContext.jsx";
+import './App.css';
 
 
 const PAGES = {
-  login: Login,
-  profile: Profile,
-  map: Map,
-  registration: Registration
+  login: (props) =>  <LoginWithAuth {...props}/>,
+  profile: (props) => <ProfileWithAuth {...props}/>,
+  map: (props) => <Map {...props}/>,
+  registration: (props) => <Registration {...props}/>
 }
 
 class App extends React.Component {
   state = { currentPage: "login" };
 
-  navigateTo(page) {
-    this.setState({ currentPage: page });
+  navigateTo = (page) => {
+    if (this.props.isLoggedIn){
+      this.setState({ currentPage: page });
+    } else {
+      this.setState({ currentPage: "login" });
+    }
   };
+
+  unauthenticate = () => {
+    this.props.logOut();
+    this.navigateTo("login");
+  }
 
   render() {
 
@@ -51,12 +61,17 @@ class App extends React.Component {
               Profile
             </button>
           </li>
+          <li className="menu__item">
+            <button className="button" onClick={this.unauthenticate}>
+              Выйти
+            </button>
+          </li>
         </ul>
       </nav>
     </header> }
     <main className="main-content">
       <section className="section"> 
-        <Page navigateTo = {this.navigateTo.bind(this)} />
+        <Page navigateTo={this.navigateTo.bind(this)}/>
       </section>
     </main>
     </>
@@ -64,4 +79,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAuth(App);
